@@ -14,7 +14,7 @@ const betweenHome = (req, res, next) => {
     console.log('between');
     next();
 }
-
+/*미들웨어를 전역으로 사용*/
 app.use(betweenHome);
 
 app.get("/", handleHome);
