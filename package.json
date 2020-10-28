@@ -4,9 +4,15 @@
   "description": "Cloning Youtube with Vanilla and NodeJS",
   "author": "Choi Jae Won",
   "dependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/node": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
     "express": "^4.17.1"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "nodemon --exec babel-node index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
   }
 }
