@@ -3,11 +3,8 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
+import {userRouter} from "./router";
 const app = express();
-
-const PORT = 4000;
-/*const name = () => content*/ /*ES6버전, 에로우펑션*/
-const handleListening = () => console.log(`Listening on: https://localhost:${PORT}`);
 
 const handleHome = (req, res) => res.send("hello from home");
 
@@ -23,4 +20,6 @@ app.get("/", handleHome);
 
 app.get("/profile", handleProfile);
 
-app.listen(PORT, handleListening);
+app.use("/user", userRouter);
+/*export default는 이 페이지 데이터를 줄때 기본적으로 주는것*/
+export default app;

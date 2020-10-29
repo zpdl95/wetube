@@ -17,4 +17,5 @@ Cloning Youtube with Vanilla and NodeJS 0. nodejs 설치
 13. npm install helmet / helmet은 서버 보안을 위한 프로그램
 14. npm install body-parser / body-parser은 body의 내용을 볼 수 있도록 변환시킴, express의 미들웨어
 15. npm install cookie-parser / cookie-parser은 cookie에 유저의 정보를 저장함, session을 다룸, express의 미들웨어
+16. 파일을 쪼개서 모듈화를 만듬
     단축키: Ctrl+c 터미널 나가기
