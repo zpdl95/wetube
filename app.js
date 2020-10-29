@@ -7,16 +7,19 @@ import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
 import globalRouter from "./routers/globalRouter";
 import routes from "./routes";
+
 const app = express();
 
-app.use(cookieParser());
-app.use(bodyParser.json());
+// middlewares
+app.use(cookieParser());/*쿠키를 전달받아 사용함, (예 사용자 인증)*/
+app.use(bodyParser.json());/*사용자가 웹사이트로 전달하는 정보를 검사, form이나 json형태로 된 body를 검사*/
 app.use(bodyParser.urlencoded({extended:true}));
-app.use(helmet());
-app.use(morgan("dev"));
+app.use(helmet());/*앱이 더 안전하게 사용됨*/
+app.use(morgan("dev"));/*앱에서 나오는 모든 기록을 남김*/
 
+// routers
 app.use(routes.home, globalRouter);
 app.use(routes.users, userRouter);
 app.use(routes.videos, videoRouter);
-/*export default는 이 페이지 데이터를 줄때 기본적으로 주는것*/
+
 export default app;

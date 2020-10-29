@@ -7,15 +7,15 @@ const SEARCH = "/search";
 
 // Users
 const USERS = "/users";
-const USER_DETAIL = "/:id";
 const EDIT_PROFILE = "/edit-profile";
 const CHANGE_PASSWORD = "/change-password";
+const USER_DETAIL = "/:id";
 
 // Videos
 const VIDEOS = "/videos";
 const UPLOAD = "/upload";
 const VIDEO_DETAIL = "/:id";
-const EDIT_VIDEO = "/:id/edit"
+const EDIT_VIDEO = "/:id/edit";
 const DELETE_VIDEO = "/:id/delete";
 /*express가 ':id' 값을 변하는 값으로 인지함*/
 
@@ -26,14 +26,14 @@ const routes = {
     logout: LOGOUT,
     search: SEARCH,
     users: USERS,
-    user_detail: USER_DETAIL,
-    edit_profile: EDIT_PROFILE,
-    change_password: CHANGE_PASSWORD,
+    userDetail: USER_DETAIL,
+    editProfile: EDIT_PROFILE,
+    changePassword: CHANGE_PASSWORD,
     videos: VIDEOS,
     upload: UPLOAD,
-    video_detail: VIDEO_DETAIL,
-    edit_video: EDIT_VIDEO,
-    delete_video: DELETE_VIDEO
+    videoDetail: VIDEO_DETAIL,
+    editVideo: EDIT_VIDEO,
+    deleteVideo: DELETE_VIDEO
 };
 
 export default routes;
