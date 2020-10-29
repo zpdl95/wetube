@@ -1,4 +1,8 @@
 import express from 'express'; /*앞은 ES6버전, 뒤는 구버전*/ /*const express = required('express')*/
+import morgan from 'morgan';
+import helmet from 'helmet';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
 const app = express();
 
 const PORT = 4000;
@@ -8,14 +12,12 @@ const handleListening = () => console.log(`Listening on: https://localhost:${POR
 const handleHome = (req, res) => res.send("hello from home");
 
 const handleProfile = (req, res) => res.send("You are on my profile");
-/*middlewares 첫요청과 마지막반응 사이에 존재하는것*/
-/*next인자가 필요함 전달용*/
-const betweenHome = (req, res, next) => {
-    console.log('between');
-    next();
-}
-/*미들웨어를 전역으로 사용*/
-app.use(betweenHome);
+
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(helmet());
+app.use(morgan("dev"));
 
 app.get("/", handleHome);
 
