@@ -10,6 +10,7 @@ import routes from "./routes";
 
 const app = express();
 
+app.set("view engine", "pug");
 // middlewares
 app.use(cookieParser());/*쿠키를 전달받아 사용함, (예 사용자 인증)*/
 app.use(bodyParser.json());/*사용자가 웹사이트로 전달하는 정보를 검사, form이나 json형태로 된 body를 검사*/
