@@ -1,4 +1,8 @@
-export const home = (req, res) => res.render("Home", {pageTitle: "Home"})
+import {videos} from "../db";
+
+export const home = (req, res) => {
+    res.render("Home", {pageTitle: "Home", videos})
+}
 
 export const search = (req, res) => {
     // const searchingBy = req.query.term; /* 구 버전 방식 */
@@ -6,8 +10,6 @@ export const search = (req, res) => {
     // {pageTitle: "Search", searchingBy: searchingBy} /* 구버전 방식 */
     res.render("search", {pageTitle: "Search", searchingBy});
 }
-
-export const videos = (req, res) => res.render("videos", {pageTitle: "Videos"});
 
 export const upload = (req, res) => res.render("upload", {pageTitle: "Upload"});
 
