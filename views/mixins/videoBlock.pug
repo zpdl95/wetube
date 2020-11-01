@@ -1,0 +1,6 @@
+//- mixin은 pug의 함수이다. 기본적으로 인자 한개가 필요함
+mixin videoBlock(video = {})
+    .videoBlock
+        video.videoBlock__thumbnail(src=video.videoFile)
+        h4.videoBlock__title= video.title
+        h6.videoBlock__views= video.views
