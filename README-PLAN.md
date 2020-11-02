@@ -20,4 +20,5 @@ Cloning Youtube with Vanilla and NodeJS
 15. npm install cookie-parser / cookie-parser은 cookie에 유저의 정보를 저장함, session을 다룸, express의 미들웨어
 16. 파일을 쪼개서 모듈화를 만듬
 17. npm install pug / pug는 앱에 view를 담당함. express의 view engine이고 템플릿임. app.set()에 사용
-    단축키: Ctrl+c 터미널 나가기
+    
+단축키: Ctrl+c 터미널 나가기

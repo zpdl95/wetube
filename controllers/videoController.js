@@ -8,7 +8,7 @@ export const search = (req, res) => {
     // const searchingBy = req.query.term; /* 구 버전 방식 */
     const {query:{term:searchingBy}} = req;
     // {pageTitle: "Search", searchingBy: searchingBy} /* 구버전 방식 */
-    res.render("search", {pageTitle: "Search", searchingBy});
+    res.render("search", {pageTitle: "Search", searchingBy, videos});
 }
 
 export const upload = (req, res) => res.render("upload", {pageTitle: "Upload"});

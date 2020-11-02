@@ -12,7 +12,11 @@ import routes from "./routes";
 const app = express();
 
 // middlewares
-app.use(helmet());/*앱이 더 안전하게 사용됨*/
+// app.use(helmet());/*앱이 더 안전하게 사용됨*/
+app.use(function(req, res, next) {
+    res.setHeader("Content-Security-Policy", "script-src 'self' https://archive.org");
+    return next();
+    });/* 임시 사용 */
 app.set("view engine", "pug");
 app.use(cookieParser());/*쿠키를 전달받아 사용함, (예 사용자 인증)*/
 app.use(bodyParser.json());/*사용자가 웹사이트로 전달하는 정보를 검사, form이나 json형태로 된 body를 검사*/
