@@ -17,8 +17,17 @@ const VideoSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now
-    }  
+    },
+    /* 해당 비디오에 댓글 아이디를 저장하는 방법 */
+    comments: [
+        {
+        type: mongoose.Schema.Types.ObjectId,
+        /* ref에 적힌 이름은 생성된 모델 이름과 같아야 한다 */
+        ref: "Comment"
+        }
+    ]
 });
+
 /* 데이터베이스의 실제 모델 생성 */
 const model = mongoose.model("Video", VideoSchema);
 export default model;
