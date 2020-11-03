@@ -1,7 +1,18 @@
 import routes from "../routes";
+import Video from "../models/Video";
 
-export const home = (req, res) => {
-    res.render("Home", {pageTitle: "Home", videos})
+/* async는 무언가를 기다리는 것 */
+/* await는 다음 과정이 끝날 때까지 기다려줌 */
+/* await는 async함수에서만 사용가능 */
+export const home = async (req, res) => {
+    try{
+        /* .find()를 하면 전부다 가져옴. 따라서 Array형태로 나옴 */
+        const videos = await Video.find({});
+        res.render("Home", {pageTitle: "Home", videos});
+    }catch(error){
+        console.log(error);
+        res.render("Home", {pageTitle: "Home", videos: []});
+    }
 }
 
 export const search = (req, res) => {
