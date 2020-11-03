@@ -2,7 +2,7 @@
 
 Cloning Youtube with Vanilla and NodeJS
 
-0. nodejs 설치
+0. nodejs 설치 and 커맨드창에 node -v 로 버전확인
 1. create xx.js
 2. npm init
 3. npm install express / express는 서버를 만드는 프레임워크임
@@ -20,5 +20,7 @@ Cloning Youtube with Vanilla and NodeJS
 15. npm install cookie-parser / cookie-parser은 cookie에 유저의 정보를 저장함, session을 다룸, express의 미들웨어
 16. 파일을 쪼개서 모듈화를 만듬
 17. npm install pug / pug는 앱에 view를 담당함. express의 view engine이고 템플릿임. app.set()에 사용
-    
+18. mongodb 설치 community sever / mongodb는 DB임. 환경변수 설정필수, 커맨드창에 mongod 로 확인
+19. npm install mongoose / mongoose는 mongodb와 nodejs를 연결해줌
+20. npm install dotenv / ...
 단축키: Ctrl+c 터미널 나가기
