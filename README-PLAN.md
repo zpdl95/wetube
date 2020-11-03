@@ -22,5 +22,5 @@ Cloning Youtube with Vanilla and NodeJS
 17. npm install pug / pug는 앱에 view를 담당함. express의 view engine이고 템플릿임. app.set()에 사용
 18. mongodb 설치 community sever / mongodb는 DB임. 환경변수 설정필수, 커맨드창에 mongod 로 확인
 19. npm install mongoose / mongoose는 mongodb와 nodejs를 연결해줌
-20. npm install dotenv / ...
+20. npm install dotenv / dotenv는 숨겨야 할 데이터를 작성할 수 있음. .gitignore에 꼭 포함시킬것
 단축키: Ctrl+c 터미널 나가기
