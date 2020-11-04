@@ -13,18 +13,18 @@ export const home = async (req, res) => {
         console.log(error);
         res.render("Home", {pageTitle: "Home", videos: []});
     }
-}
+};
 
 export const search = (req, res) => {
     // const searchingBy = req.query.term; /* 구 버전 방식 */
     const {query:{term:searchingBy}} = req;
     // {pageTitle: "Search", searchingBy: searchingBy} /* 구버전 방식 */
     res.render("search", {pageTitle: "Search", searchingBy, videos});
-}
+};
 
 export const getUpload = (req, res) => {
     res.render("upload", {pageTitle: "Upload"});
-}
+};
 
 export const postUpload = async (req, res) => {
     const {body:{title, description}, file: {path}} = req;
@@ -34,9 +34,21 @@ export const postUpload = async (req, res) => {
         description
     });
     res.redirect(routes.videoDetail(newVideo.id));
-}
+};
 
-export const videoDetail = (req, res) => res.render("videoDetail", {pageTitle: "Video Detail"});
+export const videoDetail = async (req, res) => {
+    /* params는 routes에서 주소를 :id 라고 만들어 놨기 때문에 파라미터라고 인지함 */
+    const {params:{id}} = req;
+    /* findById()는 인자로 id를 받고 query를 돌려준다 _id */
+    try{
+        const video = await Video.findById(id);
+        console.log(video);
+        res.render("videoDetail", {pageTitle: "Video Detail", video});
+    }catch(error){
+        console.log(error);
+        res.redirect(routes.home);
+    }
+};
 
 export const editVideo = (req, res) => res.render("editVideo", {pageTitle: "Edit Video"});
 
