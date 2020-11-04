@@ -1,8 +1,9 @@
 extends layouts/main
 
 block content
-    .form-container                                              /* enctype은 multer사용에 필요한 값 */
-        form(action=`${routes.videos}${routes.upload}` method="post"  enctype="multipart/form-data")
+    .form-container
+        //- enctype는 multer에서 필요한 값
+        form(action=`${routes.videos}${routes.upload}` method="post"  enctype="multipart/form-data") 
             label(for="file") Video File
             input(type="file", id="file", name="videoFile" required accept="video/*")
             input(type="text", placeholder="Title", name="title")
