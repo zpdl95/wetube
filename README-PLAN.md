@@ -24,4 +24,11 @@ Cloning Youtube with Vanilla and NodeJS
 19. npm install mongoose / mongoose는 mongodb와 nodejs를 연결해줌
 20. npm install dotenv / dotenv는 숨겨야 할 데이터를 작성할 수 있음. .gitignore에 꼭 포함시킬것
 21. npm install multer / multer은 파일을 넣으면 URL로 변환해주는 미들웨어
+22. npm install eslint -D / eslint는 코드문제 감지 모듈. -D는 개발자용으로 설치. [1. npm install -D eslint 설치 2. npx eslint --init 3. > To check syntax, find problems, and enforce code style 4.- > JavaScript modules (import/export) -> None of these -> No -> Node -> Use a popular ~ -> Airbnb -> Javascript -> Yes(eslint 관련 플러그인 자동설치) 5. vscode eslint 확장팩 설치]
+23. npm install prettier -D / 코드 정리 모듈
+24. npm install eslint-plugin-prettier -D / prettier를 eslint 규칙으로 실행 시켜 주는 모듈
+25. npm install eslint-config-prettier -D / prettier와 eslint의 충돌점을 보완해주는 모듈
+
+
 단축키: Ctrl+c 터미널 나가기
+prettier랑 typescript 둘다 포맷프로그램이라서 typescript를 꺼야 prettier가 사용 가능하다
