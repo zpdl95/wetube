@@ -23,7 +23,7 @@ const VideoSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       /* ref에 적힌 이름은 생성된 모델 이름과 같아야 한다 */
-      ref: "Comment",
+      ref: "Comments",
     },
   ],
 });

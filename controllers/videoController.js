@@ -15,13 +15,24 @@ export const home = async (req, res) => {
   }
 };
 
-export const search = (req, res) => {
+export const search = async (req, res) => {
   // const searchingBy = req.query.term; /* 구 버전 방식 */
   const {
     query: { term: searchingBy },
   } = req;
+  let videos = [];
+  try {
+    /* $regex는 regular expression의 약자로 정규표현식을 사용하는 것이다. */
+    /* 정규표현식을 사용해서 검색한 단어가 포함된 타이틀을 가져오는 것 */
+    /* 옵션에 i는 insensitive 덜 민감하다는걸 의미함. 대소문자 구분 X */
+    videos = await Video.find({
+      title: { $regex: searchingBy, $options: "i" },
+    });
+  } catch (error) {
+    console.log(error);
+  }
   // {pageTitle: "Search", searchingBy: searchingBy} /* 구버전 방식 */
-  res.render("search", { pageTitle: "Search", searchingBy });
+  res.render("search", { pageTitle: "Search", searchingBy, videos });
 };
 
 export const getUpload = (req, res) => {
