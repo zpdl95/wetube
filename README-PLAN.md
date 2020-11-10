@@ -29,6 +29,7 @@ Cloning Youtube with Vanilla and NodeJS
 24. npm install eslint-plugin-prettier -D / prettier를 eslint 규칙으로 실행 시켜 주는 모듈
 25. npm install eslint-config-prettier -D / prettier와 eslint의 충돌점을 보완해주는 모듈
 26. npm install webpack webpack-cli / webpack은 파일에서 사용하기위해, webpack-cli는 터미널에서 사용하기위해. webpack = module bundler (모듈을 묶어서 static하게 만들어줌. 신→구)
+27. npm install extract-text-webpack-plugin@next / webpack의 plugin프로그램이다. @next, @는 버전선택의 옵션 next는 최신버전(beta)
 
 
 단축키: Ctrl+c 터미널 나가기
