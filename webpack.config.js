@@ -19,11 +19,19 @@ const ENTRY_FILE = path.resolve(__dirname, "assets", "js", "main.js");
 const OUTPUT_DIR = path.join(__dirname, "static");
 /* webpack은 config를 아래에서 위로 실행한다 */
 const config = {
-  entry: ENTRY_FILE,
+  entry: ["@babel/polyfill", ENTRY_FILE],
   mode: MODE,
   /* webpack이 module을 만날때 마다 해당 rules를 따르라고 한다 */
   module: {
     rules: [
+      {
+        test: /\.(js)$/,
+        use: [
+          {
+            loader: "babel-loader",
+          },
+        ],
+      },
       {
         /* test는 해당 파일을 찾으라는 것. 정규식 사용해야함. 확장자가 .scss인것을 찾아라 */
         /* 정규식은 /\로 시작. $/로 끝 */

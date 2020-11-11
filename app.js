@@ -24,6 +24,10 @@ app.use(
   "/uploads",
   express.static("uploads")
 ); /* 해당 디렉토리로 가면 static에 적은 디렉토리에서 파일을 보내주는 미들웨어 */
+app.use(
+  "/static",
+  express.static("static")
+); /* /static경로로 가게 되면 static폴더에 있는 파일을 보내준다 */
 app.use(cookieParser()); /*쿠키를 전달받아 사용함, (예 사용자 인증)*/
 app.use(
   bodyParser.json()

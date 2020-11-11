@@ -10,7 +10,7 @@ Cloning Youtube with Vanilla and NodeJS
 5. git init / 깃레포지토리를 생성
 6. GET, POST / GET은 요청을 한다(예 웹사이트를 불러옴). POST는 정보를 보낸다(예 아이디를 보냄)
 7. get(req, res) req는 요청이고 res는 반응이다
-8. npm install @babel/node and @babel/core / babel은 최신코드를 옛코드로 변경시킴, 여기선 node용 babel을 설치
+8. npm install @babel/node and @babel/core / babel은 최신코드를 옛코드로 변경시킴, 여기선 node용 babel을 설치. 코드는 신버전인데 브라우저는 구버전이라서 그렇다.
 9. npm install @babel/preset-env / babel 프리셋을 설치 env는 최신버전을 거의다 커버함 실험은 제외
 10. .babelrc 파일 생성 and 프리셋 설정
 11. npm install nodemon -D / nodemon설치 -D 개발자용으로 설치(앱요구사항이 아님) nodemon은 저장할때마다 서버를 재시작함
@@ -28,10 +28,14 @@ Cloning Youtube with Vanilla and NodeJS
 23. npm install prettier -D / 코드 정리 모듈
 24. npm install eslint-plugin-prettier -D / prettier를 eslint 규칙으로 실행 시켜 주는 모듈
 25. npm install eslint-config-prettier -D / prettier와 eslint의 충돌점을 보완해주는 모듈
-26. npm install webpack webpack-cli / webpack은 파일에서 사용하기위해, webpack-cli는 터미널에서 사용하기위해. webpack = module bundler (모듈을 묶어서 static하게 만들어줌. 신→구)
-27. npm install extract-text-webpack-plugin@next / webpack의 plugin프로그램이다. @next, @는 버전선택의 옵션 next는 최신버전(beta)
+26. npm install webpack webpack-cli / webpack은 파일에서 사용하기위해, webpack-cli는 터미널에서 사용하기위해. webpack = module bundler (모듈을 묶어서 static하게 만들어줌. 신→구). package.json에서 사용할때 -w 옵션은 파일을 보면서 변화가 있으면 다시 실행 시켜주는 것
+27. npm install (extract-text-webpack-plugin@next)→(mini-css-extract-plugin)변경 / webpack의 plugin프로그램이다. @next, @는 버전선택의 옵션 next는 최신버전(beta)
 28. npm install cross-env / cross-env는 환경변수 라이브러리다. 터미널환경에서 변수를 사용할 수 있음. mac/linux에서는 필요없음
 29. npm install autoprefixer / postcss-loader의 옵션으로 웹브라우저와 호환되게 내용을 덧붙여줌.
+30. npm install css-loader postcss-loader sass-loader / loader plugin을 전부 설치
+31. npm install node-sass / sass-loader에 추가적으로 필요한듯 보임
+32. npm install babel-loader / ES6자바스크립트를 구버전으로 변환
+33. npm install @babel/polyfill / 브라우저는 async 같은 최신버전 코드를 이해하지 못한다. 브라우저에 없는 것(최신코드)을 모방해서 사용함
 
 
 단축키: Ctrl+c 터미널 나가기
