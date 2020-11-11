@@ -22,7 +22,7 @@ Cloning Youtube with Vanilla and NodeJS
 17. npm install pug / pug는 앱에 view를 담당함. express의 view engine이고 템플릿임. app.set()에 사용
 18. mongodb 설치 community sever / mongodb는 DB임. 환경변수 설정필수, 커맨드창에 mongod 로 확인
 19. npm install mongoose / mongoose는 mongodb와 nodejs를 연결해줌
-20. npm install dotenv / dotenv는 숨겨야 할 데이터를 작성할 수 있음. .gitignore에 꼭 포함시킬것
+20. npm install dotenv / dotenv는 환경변수 라이브러리다. '.env'파일안에 변수 값을 생성한다. dotenv는 숨겨야 할 데이터를 작성할 수 있음. .gitignore에 꼭 포함시킬것
 21. npm install multer / multer은 파일을 넣으면 URL로 변환해주는 미들웨어
 22. npm install eslint -D / eslint는 코드문제 감지 모듈. -D는 개발자용으로 설치. [1. npm install -D eslint 설치 2. npx eslint --init 3. > To check syntax, find problems, and enforce code style 4.- > JavaScript modules (import/export) -> None of these -> No -> Node -> Use a popular ~ -> Airbnb -> Javascript -> Yes(eslint 관련 플러그인 자동설치) 5. vscode eslint 확장팩 설치]
 23. npm install prettier -D / 코드 정리 모듈
@@ -30,6 +30,8 @@ Cloning Youtube with Vanilla and NodeJS
 25. npm install eslint-config-prettier -D / prettier와 eslint의 충돌점을 보완해주는 모듈
 26. npm install webpack webpack-cli / webpack은 파일에서 사용하기위해, webpack-cli는 터미널에서 사용하기위해. webpack = module bundler (모듈을 묶어서 static하게 만들어줌. 신→구)
 27. npm install extract-text-webpack-plugin@next / webpack의 plugin프로그램이다. @next, @는 버전선택의 옵션 next는 최신버전(beta)
+28. npm install cross-env / cross-env는 환경변수 라이브러리다. 터미널환경에서 변수를 사용할 수 있음. mac/linux에서는 필요없음
+29. npm install autoprefixer / postcss-loader의 옵션으로 웹브라우저와 호환되게 내용을 덧붙여줌.
 
 
 단축키: Ctrl+c 터미널 나가기
