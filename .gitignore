@@ -119,4 +119,5 @@ package-lock.json
 node_modules
 uploads
 .eslintrc.js
+.babelrc
 static

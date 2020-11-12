@@ -1,5 +1,7 @@
-@import "config/variables.scss";
+@import "config/variables.scss"; /* sass파일에만 _를 붙인다 */
+@import "config/reset.scss";
+@import "main.scss";
 
-body {
-  background-color: $fuckingColor;
-}
+@import "partials/header.scss";
+
+@import "pages/home.scss";
