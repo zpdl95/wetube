@@ -1,0 +1,47 @@
+.videoDetail-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .video__player {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    video {
+      width: 100%;
+    }
+  }
+  .video__info {
+    width: 100%;
+    margin-top: 25px;
+    max-width: 850px;
+    button {
+      width: 100px;
+      margin-bottom: 25px;
+    }
+    .video__title,
+    .video__views,
+    .video__dates,
+    .video__description {
+      display: block;
+      margin-bottom: 15px;
+    }
+    .video__title {
+      font-size: 22px;
+      font-weight: 300;
+    }
+    .video__views {
+      font-size: 14px;
+    }
+    .video__dates {
+      font-size: 14px;
+    }
+    .video__description {
+      font-size: 18px;
+    }
+  }
+  .video__comments {
+    margin-top: 25px;
+    .video__comments-number {
+      font-size: 18px;
+    }
+  }
+}

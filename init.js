@@ -1,8 +1,8 @@
-import dotenv from "dotenv";
-import app from "./app";
-import "./db";
-import "./models/Video";
-import "./models/Comment";
+import dotenv from "dotenv"; /* 환경변수값 가져오기 */
+import app from "./app"; /* 서버 */
+import "./db"; /* 데이터베이스 실행 */
+import "./models/Video"; /* 데이터베이스 모델 가져오기 */
+import "./models/Comment"; /* 데이터베이스 모델 가져오기 */
 
 /* 현재 디렉토리의 .env 파일을 자동으로 인식해서 환경변수를 설정해줍니다 */
 dotenv.config();
@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 4000;
 const handleListening = () =>
   console.log(`✅ Listening on https://localhost:${PORT}`);
 
-app.listen(PORT, handleListening);
+app.listen(PORT, handleListening); /* 서버 실행 */
 
 /*
 import path from 'path'

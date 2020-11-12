@@ -60,7 +60,6 @@ export const videoDetail = async (req, res) => {
   /* findById()는 인자로 id를 받고 query를 돌려준다 _id */
   try {
     const video = await Video.findById(id);
-    console.log(video);
     res.render("videoDetail", { pageTitle: video.title, video });
   } catch (error) {
     console.log(error);
