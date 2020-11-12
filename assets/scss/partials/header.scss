@@ -12,7 +12,7 @@
     .header__column {
       i {
         color: white;
-        font-size: 40px;
+        font-size: 30px;
       }
       /* & ← 이놈은 .header__column안에서 사용됐기 때문에 .header__column을 지칭한다 */
       &:nth-child(2) {
