@@ -29,5 +29,6 @@ const VideoSchema = new mongoose.Schema({
 });
 
 /* 데이터베이스의 실제 모델 생성 */
+/* model("", )에서 첫번째 인자가 이름임 */
 const model = mongoose.model("Video", VideoSchema);
 export default model;

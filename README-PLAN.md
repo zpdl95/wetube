@@ -36,7 +36,11 @@ Cloning Youtube with Vanilla and NodeJS
 31. npm install node-sass / sass-loader에 추가적으로 필요한듯 보임
 32. npm install babel-loader / ES6자바스크립트를 구버전으로 변환
 33. npm install @babel/polyfill / 브라우저는 async 같은 최신버전 코드를 이해하지 못한다. 브라우저에 없는 것(최신코드)을 모방해서 사용함
+34. npm install passport-local-mongoose / mongoose용 passport플러그인을 설치. passport는 미들웨어로 인증기능을 가지고 있다. passport는 쿠키를 생성하고, 브라우저에 저장시켜주고, 유저에게 해당 쿠키를 준다. 그리고 이 passport가 브라우저에서 '자동'으로 쿠키를 가져와서 인증이 완료된 user object를 controller에 넘겨준다. passport는 다른 모듈들도 지원한다(깃허브, 페북, 스팀 등등 다른 아이디로도 인증가능). 사용자 기능을 추가함. User model을 위한것(database)
+35. npm install passport passport-local / passport는 passport이고, passport-local은 username과 password를 쓰는 사용자인증방식(strategy)을 의미함
 
 
 단축키: Ctrl+c 터미널 나가기
 prettier랑 typescript 둘다 포맷프로그램이라서 typescript를 꺼야 prettier가 사용 가능하다
+
+쿠키: 우리가 브라우저에 저장할 수 있는 것들, 모든 요청(request)에 대해서 백엔드로 전송될 정보들이 담겨있다. 브라우저 상에 쿠키를 설정해주면 그 쿠키를 통해 사용자 ID를 알 수 있다. 웹사이트에서 쿠키를 가지고 있는 클라이언트가 서버에 요청을 할때 브라우저가 자동으로 그 쿠키를 서버로 전송한다.
