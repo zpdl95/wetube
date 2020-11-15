@@ -1,3 +1,4 @@
+import passport from "passport";
 import routes from "../routes";
 import User from "../models/User";
 
@@ -5,7 +6,7 @@ export const getJoin = (req, res) => {
   res.render("join", { pageTitle: "Join" });
 };
 
-export const postJoin = async (req, res) => {
+export const postJoin = async (req, res, next) => {
   const {
     body: { name, email, password, password1 },
   } = req;
@@ -20,21 +21,24 @@ export const postJoin = async (req, res) => {
       });
       /* 유저를 등록하면서 데이터베이스에 저장 */
       await User.register(user, password);
+      next();
     } catch (error) {
       console.log(error);
+      res.redirect(routes.home);
     }
-    // To Do: Log user in
-    res.redirect(routes.home);
   }
 };
 
 export const getLogin = (req, res) => {
   res.render("login", { pageTitle: "Log in" });
 };
-
-export const postLogin = (req, res) => {
-  res.redirect(routes.home);
-};
+/* 유저인증호출 */
+/* 'local'은 User.js에 있는 Strategy다 */
+/* 데이터베이스에 있는 것과 비교해서 인증함 */
+export const postLogin = passport.authenticate("local", {
+  failureRedirect: routes.login,
+  successRedirect: routes.home,
+});
 
 export const logout = (req, res) => {
   // To Do: Process Log Out

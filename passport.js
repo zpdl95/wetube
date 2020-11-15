@@ -8,6 +8,10 @@ import User from "./models/User";
 /* .createStrategy()는 이미 구성된 passport-local의 LocalStrategy를 생성한다 */
 passport.use(User.createStrategy());
 /* passport야 쿠키에는 오직 user.id만 담아서 보내도록 해 */
+/* 사용자 인증 성공 시 호출(로그인시) */
+/* 사용자 정보 object를 세션에 ID로 저장 */
 passport.serializeUser(User.serializeUser());
-/* user.id를 가지고 사용자를 식별 */
+/* 세션에 저장한 ID를 통해 사용자 정보 object를 불러옴 */
+/* user.id를 가지고 사용자를 식별(데이터베이스에서 사용자 정보 조회) */
+/* 조회한 정보를 req,user에 저장 */
 passport.deserializeUser(User.deserializeUser());

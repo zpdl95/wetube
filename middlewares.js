@@ -1,13 +1,13 @@
 import multer from "multer";
 import routes from "./routes";
 
+/* 모든 요청에 대해 이 함수를 실행기키기 때문에 전역변수로 사용한다 */
 export const localsMiddlewares = (req, res, next) => {
   res.locals.siteName = "WeTube";
   res.locals.routes = routes;
-  res.locals.user = {
-    isAuthenticated: false,
-    id: 1,
-  };
+  /* req.user는 쿠키정보 */
+  /* 세션에 저장됨 */
+  res.locals.user = req.user || {};
   next();
 };
 

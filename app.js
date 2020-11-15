@@ -3,38 +3,44 @@ import morgan from "morgan";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
+import passport from "passport";
 import { localsMiddlewares } from "./middlewares";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
 import globalRouter from "./routers/globalRouter";
 import routes from "./routes";
 
+import "./passport";
+
 const app = express();
 
 // middlewares
 // app.use(helmet());/*앱이 더 안전하게 사용됨*/
-app.use(
-  helmet({
-    contentSecurityPolicy: false,
-  })
-); /* 이것을 비활성화 해야 테스트할때 영상이 보임 */
+/* 이것을 비활성화 해야 테스트할때 영상이 보임 */
+app.use(helmet({ contentSecurityPolicy: false }));
 app.set("view engine", "pug");
-/* ⬇ 방식의 코드 사용은 css등 프론트엔드에 사용을하고 지금은 임시로 사용함*/
-app.use(
-  "/uploads",
-  express.static("uploads")
-); /* 해당 디렉토리로 가면 static에 적은 디렉토리에서 파일을 보내주는 미들웨어 */
-app.use(
-  "/static",
-  express.static("static")
-); /* /static경로로 가게 되면 static폴더에 있는 파일을 보내준다 */
-app.use(cookieParser()); /*쿠키를 전달받아 사용함, (예 사용자 인증)*/
-app.use(
-  bodyParser.json()
-); /*사용자가 웹사이트로 전달하는 정보를 검사, form이나 json형태로 된 body를 검사*/
+/* ⬇ 방식의 코드 사용은 css등 프론트엔드에 사용하고,(로컬에서 사용할때) 지금은 임시로 사용함*/
+/* 해당 디렉토리로 가면 static에 적은 디렉토리에서 파일을 보내주는 미들웨어 */
+app.use("/uploads", express.static("uploads"));
+/* '/static'경로로 가게 되면 static폴더에 있는 파일을 보내준다 */
+app.use("/static", express.static("static"));
+/* 요청된 쿠키를 추출함. req에 cookies속성이 부여됨*/
+app.use(cookieParser());
+/* 사용자가 웹사이트로 전달하는 정보를 검사, form이나 json형태로 된 body를 검사*/
+app.use(bodyParser.json());
+/* body데이터를 받고 그 안의 객체들을 사용할려면 true를 설정해야됨 */
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(morgan("dev")); /*앱에서 나오는 모든 기록을 남김*/
+/* 앱에서 나오는 모든 기록을 남김 */
+app.use(morgan("dev"));
+/* passport 초기화 및 구동 */
+/* passport가 쿠키를 보고 해당하는 사용자를 찾음,
+그리고 그 사용자를 request의 object, 즉 req.user로 만들어줌*/
+app.use(passport.initialize());
+/* 세션 연결 */
+app.use(passport.session());
+/* 로컬미들웨어를 만들어 전역변수처럼 사용 */
 app.use(localsMiddlewares);
+
 // routers
 app.use(routes.home, globalRouter);
 app.use(routes.users, userRouter);
