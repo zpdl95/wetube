@@ -10,6 +10,7 @@ export const postJoin = async (req, res, next) => {
   const {
     body: { name, email, password, password1 },
   } = req;
+  // email이 이미 존재하면 다른 email로 사용하라고 해야됨
   if (password !== password1) {
     res.status(400);
     res.render("join", { pageTitle: "Join" });
@@ -19,6 +20,7 @@ export const postJoin = async (req, res, next) => {
         name,
         email,
       });
+
       /* 유저를 등록하면서 데이터베이스에 저장 */
       await User.register(user, password);
       next();
@@ -46,12 +48,43 @@ export const postLogin = passport.authenticate("local", {
 export const githubLogin = passport.authenticate("github");
 
 /* 깃허브페이지에서 로그인 인증을 받고 난뒤 실행되는 함수 */
-export const githubLoginCallback = (accessToken, refreshToken, profile, cb) => {
-  console.log(accessToken, refreshToken, profile, cb);
+/* 'cb'이 콜백 함수는 passport에서 제공된 callback함수다 */
+/* accessToken→_, refreshToken→__ */
+export const githubLoginCallback = async (_, __, profile, cb) => {
+  const {
+    _json: { id, avatar_url, name, email },
+  } = profile;
+
+  try {
+    /* 깃허브에서 제공한 email을 가지고 데이터베이스에서 유저를 찾는다 */
+    const user = await User.findOne({ email });
+
+    /* 유저가 있으면, 유저의 githubId를 깃허브에서 준 id로 한다 */
+    if (user) {
+      user.githubId = id;
+      user.save(); /* 데이터베이스 저장 */
+
+      /* cb(err, user) 첫 변수는 에러, 두번째 변수는 유저 */
+      /* 인증이 성공했을때 호출 */
+      /* 에러가 없고, 유저가 있으면 passport는 사용자를 찾았다고 알게됨
+      그러면 passport는 user ID를 쿠키에 넣어준다 */
+      return cb(null, user);
+    }
+    const newUser = await User.create({
+      email,
+      name,
+      githubId: id,
+      avatarUrl: avatar_url,
+    });
+    return cb(null, newUser);
+  } catch (error) {
+    /* 유저 없이 에러만 있으면, passport는 사용자를 못 찾은걸로 알게됨 */
+    return cb(error);
+  }
 };
 
 export const postGithubLogin = (req, res) => {
-  res.send(routes.home);
+  res.redirect(routes.home);
 };
 
 export const logout = (req, res) => {
