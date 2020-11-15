@@ -38,6 +38,7 @@ Cloning Youtube with Vanilla and NodeJS
 33. npm install @babel/polyfill / 브라우저는 async 같은 최신버전 코드를 이해하지 못한다. 브라우저에 없는 것(최신코드)을 모방해서 사용함
 34. npm install passport-local-mongoose / mongoose용 passport플러그인을 설치. passport는 미들웨어로 인증기능을 가지고 있다. passport는 쿠키를 생성하고, 브라우저에 저장시켜주고, 유저에게 해당 쿠키를 준다. 그리고 이 passport가 브라우저에서 '자동'으로 쿠키를 가져와서 인증이 완료된 user object를 controller에 넘겨준다. passport는 다른 모듈들도 지원한다(깃허브, 페북, 스팀 등등 다른 아이디로도 인증가능). 사용자 기능을 추가함. User model을 위한것(database)
 35. npm install passport passport-local / passport는 passport이고, passport-local은 username과 password를 쓰는 사용자인증방식(strategy)을 의미함
+36. npm install express-session / express서버에 session을 관리하기 위한 프로그램
 
 
 단축키: Ctrl+c 터미널 나가기

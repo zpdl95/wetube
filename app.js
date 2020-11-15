@@ -4,6 +4,7 @@ import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import passport from "passport";
+import session from "express-session";
 import { localsMiddlewares } from "./middlewares";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
@@ -32,6 +33,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 /* 앱에서 나오는 모든 기록을 남김 */
 app.use(morgan("dev"));
+/* 서버에 session사용 및 옵션을 설정 */
+app.use(
+  session({
+    /* session의 ID를 랜덤문자를 이용해 암호화 함 */
+    secret: process.env.COOKIE_SECRET,
+    /* session을 강제로 저장함 */
+    resave: true,
+    /* 초기화되지 않은(uninitialized)세션을 저장소에 저장함 */
+    /* 로그인 session에 이용하려면, false를 선택하는 것이 유용함 */
+    saveUninitialized: false,
+  })
+);
 /* passport 초기화 및 구동 */
 /* passport가 쿠키를 보고 해당하는 사용자를 찾음,
 그리고 그 사용자를 request의 object, 즉 req.user로 만들어줌*/
