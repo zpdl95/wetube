@@ -8,8 +8,23 @@ export const localsMiddlewares = (req, res, next) => {
   /* req.user는 쿠키정보 */
   /* 세션에 저장됨 */
   res.locals.user = req.user || null;
-  console.log(req.user);
   next();
+};
+/* 비로그인사용자만 */
+export const onlyPublic = (req, res, next) => {
+  if (req.user) {
+    res.redirect(routes.home);
+  } else {
+    next();
+  }
+};
+/* 로그인 사용자만 */
+export const onlyPrivate = (req, res, next) => {
+  if (req.user) {
+    next();
+  } else {
+    res.redirect(routes.home);
+  }
 };
 
 /* dest는 destination으로 목적지를 적어야함. 여기선 videos폴더 */

@@ -4,7 +4,9 @@ import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import passport from "passport";
+import mongoose from "mongoose";
 import session from "express-session";
+import MongoStore from "connect-mongo";
 import { localsMiddlewares } from "./middlewares";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
@@ -14,6 +16,8 @@ import routes from "./routes";
 import "./passport";
 
 const app = express();
+/* session을 MongoStore라는 저장소에 넣음 */
+const CookieStore = MongoStore(session);
 
 // middlewares
 // app.use(helmet());/*앱이 더 안전하게 사용됨*/
@@ -43,6 +47,9 @@ app.use(
     /* 초기화되지 않은(uninitialized)세션을 저장소에 저장함 */
     /* 로그인 session에 이용하려면, false를 선택하는 것이 유용함 */
     saveUninitialized: false,
+    /* mongoose는 이 저장소를 데이터베이스에 연결함 */
+    /* session을 데이터베이스에 저장함으로써 서버가 끊어져도 session이 유지됨 */
+    store: new CookieStore({ mongooseConnection: mongoose.connection }),
   })
 );
 /* passport 초기화 및 구동 */
