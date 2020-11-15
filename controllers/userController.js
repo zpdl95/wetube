@@ -40,8 +40,17 @@ export const postLogin = passport.authenticate("local", {
   successRedirect: routes.home,
 });
 
+export const githubLogin = passport.authenticate("github");
+
+/* 깃허브페이지에서 로그인 인증을 받고 난뒤 실행하는 함수 */
+export const githubLoginCallback = (accessToken, refreshToken, profile, cb) => {
+  console.log(accessToken, refreshToken, profile, cb);
+};
+
 export const logout = (req, res) => {
-  // To Do: Process Log Out
+  /* passport는 편리한 로그아웃기능을 제공.
+  req.logout()을 사용하면 req.user을 제거하고, 로그인세션을 끝낸다 */
+  req.logout();
   res.redirect(routes.home);
 };
 

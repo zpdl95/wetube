@@ -1,4 +1,6 @@
 import passport from "passport";
+import GithubStrategy from "passport-github";
+import { githubLoginCallback } from "./controllers/userController";
 import User from "./models/User";
 
 /* 아래의 코드는 passport-local-mongoose의 shortcut이다 */
@@ -7,6 +9,17 @@ import User from "./models/User";
 /* passport야 Strategy(로그인하는 방식)를 하나 사용해 */
 /* .createStrategy()는 이미 구성된 passport-local의 LocalStrategy를 생성한다 */
 passport.use(User.createStrategy());
+/* 깃허브 로그인 방식 */
+passport.use(
+  new GithubStrategy(
+    {
+      clientID: process.env.GH_ID,
+      clientSecret: process.env.GH_SECRET,
+      callbackURL: "http://localhost:5000/auth/github/callback",
+    },
+    githubLoginCallback()
+  )
+);
 /* passport야 쿠키에는 오직 user.id만 담아서 보내도록 해 */
 /* 사용자 인증 성공 시 호출(로그인시) */
 /* 사용자 정보 object를 세션에 ID로 저장 */

@@ -40,6 +40,7 @@ Cloning Youtube with Vanilla and NodeJS
 35. npm install passport passport-local / passport는 passport이고, passport-local은 username과 password를 쓰는 사용자인증방식(strategy)을 의미함
 36. npm install express-session / express서버에 session을 관리하기 위한 프로그램
 37. npm install connect-mongo / mongo데이터베이스에 session을 저장. 서버를 재시작해도 로그인을 유지하기 위해
+38. npm install passport-github / github로 로그인 하기. 깃허브페이지에서 인증어플리케이션을 생성해야됨 https://github.com/settings/applications
 
 
 단축키: Ctrl+c 터미널 나가기
