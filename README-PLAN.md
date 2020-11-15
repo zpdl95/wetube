@@ -43,7 +43,7 @@ Cloning Youtube with Vanilla and NodeJS
 38. npm install passport-github / github로 로그인 하기. 깃허브페이지에서 인증어플리케이션을 생성해야됨 https://github.com/settings/applications
 
 
-단축키: Ctrl+c 터미널 나가기
+단축키: Ctrl+c 터미널 나가기, Ctrl+spacebar 자동완성
 prettier랑 typescript 둘다 포맷프로그램이라서 typescript를 꺼야 prettier가 사용 가능하다
 
 쿠키: 우리가 브라우저에 저장할 수 있는 것들, 모든 요청(request)에 대해서 백엔드로 전송될 정보들이 담겨있다. 브라우저 상에 쿠키를 설정해주면 그 쿠키를 통해 사용자 ID를 알 수 있다. 웹사이트에서 쿠키를 가지고 있는 클라이언트가 서버에 요청을 할때 브라우저가 자동으로 그 쿠키를 서버로 전송한다.

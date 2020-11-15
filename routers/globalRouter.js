@@ -1,4 +1,5 @@
 import express from "express";
+import passport from "passport";
 import routes from "../routes";
 import { home, search } from "../controllers/videoController";
 import {
@@ -7,11 +8,13 @@ import {
   logout,
   getLogin,
   postLogin,
+  githubLogin,
+  postGithubLogin,
 } from "../controllers/userController";
-import { onlyPublic } from "../middlewares";
+import { onlyPrivate, onlyPublic } from "../middlewares";
 
 const globalRouter = express.Router();
-
+// home
 globalRouter.get(routes.home, home);
 
 // Join
@@ -22,8 +25,19 @@ globalRouter.post(routes.join, onlyPublic, postJoin, postLogin);
 globalRouter.get(routes.login, onlyPublic, getLogin);
 globalRouter.post(routes.login, onlyPublic, postLogin);
 
+// search
 globalRouter.get(routes.search, search);
 
-globalRouter.get(routes.logout, logout);
+// logout
+globalRouter.get(routes.logout, onlyPrivate, logout);
+
+// github
+globalRouter.get(routes.gitHub, githubLogin);
+globalRouter.get(
+  routes.githubCallback,
+  /* 깃허브콜백주소를 실행시키면, passport.js에 있는 githubLoginCallback함수를 실행하게 됨 */
+  passport.authenticate("github", { failureRedirect: routes.login }),
+  postGithubLogin
+);
 
 export default globalRouter;

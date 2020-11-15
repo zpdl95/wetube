@@ -32,6 +32,7 @@ export const postJoin = async (req, res, next) => {
 export const getLogin = (req, res) => {
   res.render("login", { pageTitle: "Log in" });
 };
+
 /* 유저인증호출 */
 /* 'local'은 User.js에 있는 Strategy다 */
 /* 데이터베이스에 있는 것과 비교해서 인증함 */
@@ -40,11 +41,17 @@ export const postLogin = passport.authenticate("local", {
   successRedirect: routes.home,
 });
 
+/* routes에서 깃허브페이지로 로그인 인증을 하라고 보냄 */
+/* passport.js에 new GithubStrategy로 넘어감 */
 export const githubLogin = passport.authenticate("github");
 
-/* 깃허브페이지에서 로그인 인증을 받고 난뒤 실행하는 함수 */
+/* 깃허브페이지에서 로그인 인증을 받고 난뒤 실행되는 함수 */
 export const githubLoginCallback = (accessToken, refreshToken, profile, cb) => {
   console.log(accessToken, refreshToken, profile, cb);
+};
+
+export const postGithubLogin = (req, res) => {
+  res.send(routes.home);
 };
 
 export const logout = (req, res) => {
