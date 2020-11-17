@@ -62,7 +62,7 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
     /* 유저가 있으면, 유저의 githubId를 깃허브에서 준 id로 한다 */
     if (user) {
       user.githubId = id;
-      user.save(); /* 데이터베이스 저장 */
+      user.save(); /* 데이터베이스 저장 & 업데이트 */
 
       /* cb(err, user) 첫 변수는 에러, 두번째 변수는 유저 */
       /* 인증이 성공했을때 호출 */
@@ -91,13 +91,35 @@ export const postGithubLogin = (req, res) => {
 /* passport.js에 new FacebookStrategy로 넘어감 */
 export const facebookLogin = passport.authenticate("facebook");
 
-export const facebookLoginCallback = async (
-  accessToken,
-  refreshToken,
-  profile,
-  cb
-) => {
-  console.log(accessToken, refreshToken, profile, cb);
+export const facebookLoginCallback = async (_, __, profile, cb) => {
+  const {
+    _json: { id, name, email },
+  } = profile;
+  try {
+    /* 페이스북에서 제공한 email을 가지고 데이터베이스에서 유저를 찾는다 */
+    const user = await User.findOne({ email });
+
+    /* 유저가 있으면, 유저의 facebookId를 페이스북에서 준 id로 한다 */
+    if (user) {
+      user.facebookId = id;
+      user.save(); /* 데이터베이스 저장 & 업데이트 */
+
+      /* cb(err, user) 첫 변수는 에러, 두번째 변수는 유저 */
+      /* 인증이 성공했을때 호출 */
+      /* 에러가 없고, 유저가 있으면 passport는 사용자를 찾았다고 알게됨
+      그러면 passport는 user ID를 쿠키에 넣어준다 */
+      return cb(null, user);
+    }
+    const newUser = await User.create({
+      email,
+      name,
+      facebookId: id,
+      avatarUrl: `https://graph.facebook.com/${id}/picture?type=large`,
+    });
+    return cb(null, newUser);
+  } catch (error) {
+    return cb(error);
+  }
 };
 
 export const postFacebookLogin = (req, res) => {
