@@ -30,6 +30,7 @@ passport.use(
 );
 
 /* 페이스북 로그인 방식 */
+/* 페이스북은 'https'가 아니면 정보를 주지 않는다 */
 passport.use(
   new FacebookStrategy(
     /* passport.authenticate("facebook")를 처음실행하면 ↓가 실행됨 */
@@ -37,6 +38,10 @@ passport.use(
       clientID: process.env.FB_ID,
       clientSecret: process.env.FB_SECRET,
       callbackURL: `http://localhost:5000${routes.facebookCallback}`,
+      /* 원하는 사용자 필드가 있을때 명시해줄것 */
+      profileFields: ["id", "displayName", "photos", "email"],
+      /* 추가권한이 필요한 경우 scope옵션 사용 */
+      scope: ["public_profile", "email"],
     },
     /* passport.authenticate("facebook")를 두번째로 실행하면 ↓가 실행됨 */
     facebookLoginCallback
