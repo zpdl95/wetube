@@ -94,6 +94,11 @@ export const logout = (req, res) => {
   res.redirect(routes.home);
 };
 
+export const getMe = (req, res) => {
+  /* req.user는 현재 로그인된 유저 */
+  res.render("userDetail", { pageTitle: "User Detail", user: req.user });
+};
+
 export const userDetail = (req, res) =>
   res.render("userDetail", { pageTitle: "User Detail" });
 

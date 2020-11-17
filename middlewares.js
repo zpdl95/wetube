@@ -7,7 +7,7 @@ export const localsMiddlewares = (req, res, next) => {
   res.locals.routes = routes;
   /* req.user는 쿠키정보 */
   /* 세션에 저장됨 */
-  res.locals.user = req.user || null;
+  res.locals.loggedUser = req.user || null;
   next();
 };
 /* 비로그인사용자만 */
