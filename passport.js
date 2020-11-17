@@ -1,6 +1,10 @@
 import passport from "passport";
 import GithubStrategy from "passport-github";
-import { githubLoginCallback } from "./controllers/userController";
+import FacebookStrategy from "passport-facebook";
+import {
+  facebookLoginCallback,
+  githubLoginCallback,
+} from "./controllers/userController";
 import User from "./models/User";
 import routes from "./routes";
 
@@ -22,6 +26,20 @@ passport.use(
     },
     /* passport.authenticate("github")를 두번째로 실행하면 ↓가 실행됨 */
     githubLoginCallback
+  )
+);
+
+/* 페이스북 로그인 방식 */
+passport.use(
+  new FacebookStrategy(
+    /* passport.authenticate("facebook")를 처음실행하면 ↓가 실행됨 */
+    {
+      clientID: process.env.FB_ID,
+      clientSecret: process.env.FB_SECRET,
+      callbackURL: `http://localhost:5000${routes.facebookCallback}`,
+    },
+    /* passport.authenticate("facebook")를 두번째로 실행하면 ↓가 실행됨 */
+    facebookLoginCallback
   )
 );
 
