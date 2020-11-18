@@ -133,9 +133,15 @@ export const logout = (req, res) => {
   res.redirect(routes.home);
 };
 
-export const getMe = (req, res) => {
+export const getMe = async (req, res) => {
   /* req.user는 현재 로그인된 유저 */
-  res.render("userDetail", { pageTitle: "User Detail", user: req.user });
+  try {
+    /* id에 대한 user 정보와 그 안에 있는 video정보를 더 많이 준다 */
+    const user = await User.findById(req.user.id).populate("videos");
+    res.render("userDetail", { pageTitle: "User Detail", user });
+  } catch (error) {
+    res.redirect(routes.home);
+  }
 };
 
 export const userDetail = async (req, res) => {
@@ -143,7 +149,8 @@ export const userDetail = async (req, res) => {
     params: { id },
   } = req;
   try {
-    const user = await User.findById(id);
+    /* id에 대한 user 정보와 그 안에 있는 video정보를 더 많이 준다 */
+    const user = await User.findById(id).populate("videos");
     res.render("userDetail", { pageTitle: "User Detail", user });
   } catch (error) {
     res.redirect(routes.home);

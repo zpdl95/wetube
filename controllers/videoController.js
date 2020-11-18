@@ -65,7 +65,6 @@ export const videoDetail = async (req, res) => {
     /* populate()는 mongoose.Schema.Types.ObjectId에만 사용가능, 객체를 데려오는 함수 */
     /* creator가 id값으로만 나오는데 populate()를 사용해서 내용물까지 가져옴 */
     const video = await Video.findById(id).populate("creator");
-    console.log(video);
     res.render("videoDetail", { pageTitle: video.title, video });
   } catch (error) {
     console.log(error);
@@ -79,7 +78,13 @@ export const getEditVideo = async (req, res) => {
   } = req;
   try {
     const video = await Video.findById(id);
-    res.render("editVideo", { pageTitle: `Edit ${Video.title}`, video });
+    /* 로그인된 유저인지를 확인 */
+    /* video.creator는 id만 있음 기본적으로 */
+    if (String(video.creator) !== req.user.id) {
+      throw Error();
+    } else {
+      res.render("editVideo", { pageTitle: `Edit ${Video.title}`, video });
+    }
   } catch (error) {
     res.redirect(routes.home);
   }
@@ -104,7 +109,13 @@ export const deleteVideo = async (req, res) => {
     params: { id },
   } = req;
   try {
-    await Video.findOneAndRemove({ _id: id });
+    /* 로그인된 유저인지를 확인 */
+    const video = await Video.findById(id);
+    if (String(video.creator) !== req.user.id) {
+      throw Error();
+    } else {
+      await Video.findOneAndRemove({ _id: id });
+    }
   } catch (error) {
     console.log(error);
   }
