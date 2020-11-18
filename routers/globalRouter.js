@@ -51,6 +51,8 @@ globalRouter.get(
   postFacebookLogin
 );
 
-globalRouter.get(routes.me, getMe);
+// userDetail
+/* 로그인한 유저만 갈 수 있다 */
+globalRouter.get(routes.me, onlyPrivate, getMe);
 
 export default globalRouter;
