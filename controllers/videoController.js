@@ -85,6 +85,7 @@ export const postEditVideo = async (req, res) => {
     body: { title, description },
   } = req;
   try {
+    /* findOneAndUpdate(_,__) 첫번째 인자는 지정할 대상, 두번째 인자는 변경할 값 */
     await Video.findOneAndUpdate({ _id: id }, { title, description });
     res.redirect(routes.videoDetail(id));
   } catch (error) {

@@ -3,7 +3,7 @@ extends layouts/main
 block content
     .form-container
         //- enctype는 multer에서 필요한 값. 동영상파일을 url로 변환
-        form(action=`${routes.videos}${routes.upload}` method="post"  enctype="multipart/form-data") 
+        form(action=`${routes.videos}${routes.upload}` method="post" enctype="multipart/form-data") 
             .fileUpload
                 label(for="file") Video File
                 input(type="file", id="file", name="videoFile" required accept="video/*")
