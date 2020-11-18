@@ -159,8 +159,6 @@ export const postEditProfile = async (req, res) => {
     file,
   } = req;
   try {
-    console.log(req.user);
-    console.log(req.user.id);
     /* findByIdAndUpdate(_,__)의 첫번째 인자는 id, 두번째 인자는 변경할 값 */
     await User.findByIdAndUpdate(req.user.id, {
       name,
@@ -169,9 +167,30 @@ export const postEditProfile = async (req, res) => {
     });
     res.redirect(routes.me);
   } catch (error) {
-    res.render("editProfile", { pageTitle: "Edit Profile" });
+    res.redirect(`${routes.users}${routes.editProfile}`);
   }
 };
 
-export const changePassword = (req, res) =>
+export const getChangePassword = (req, res) =>
   res.render("changePassword", { pageTitle: "Change Password" });
+
+export const postChangePassword = async (req, res) => {
+  const {
+    body: { oldPassword, newPassword, newPassword1 },
+  } = req;
+  try {
+    if (newPassword !== newPassword1) {
+      /* status 뒤에 추가사항아 있어야 작동함 */
+      res.status(400).send("new and new1 is not same");
+      res.redirect(`${routes.users}${routes.changePassword}`);
+      return;
+    }
+    console.log(req.body);
+    /* changePassword(_,__) 첫번째 인자는 이전 비번, 두번째 인자는 새로운 비번 */
+    await req.user.changePassword(oldPassword, newPassword);
+    res.redirect(routes.me);
+  } catch (error) {
+    res.status(400).send("Current Password is wrong");
+    res.redirect(`${routes.users}${routes.changePassword}`);
+  }
+};
