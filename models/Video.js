@@ -26,6 +26,10 @@ const VideoSchema = new mongoose.Schema({
       ref: "Comments",
     },
   ],
+  creator: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 /* 데이터베이스의 실제 모델 생성 */

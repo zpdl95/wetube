@@ -48,7 +48,10 @@ export const postUpload = async (req, res) => {
     fileUrl: path,
     title,
     description,
+    creator: req.user.id,
   });
+  req.user.videos.push(newVideo.id);
+  req.user.save();
   res.redirect(routes.videoDetail(newVideo.id));
 };
 
@@ -59,7 +62,10 @@ export const videoDetail = async (req, res) => {
   } = req;
   /* findById()는 인자로 id를 받고 query를 돌려준다 _id */
   try {
-    const video = await Video.findById(id);
+    /* populate()는 mongoose.Schema.Types.ObjectId에만 사용가능, 객체를 데려오는 함수 */
+    /* creator가 id값으로만 나오는데 populate()를 사용해서 내용물까지 가져옴 */
+    const video = await Video.findById(id).populate("creator");
+    console.log(video);
     res.render("videoDetail", { pageTitle: video.title, video });
   } catch (error) {
     console.log(error);

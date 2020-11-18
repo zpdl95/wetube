@@ -9,6 +9,10 @@ const CommentSchema = new mongoose.Schema({
     type: String,
     default: Date.now,
   },
+  creator: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
   // /* 댓글에 해당 비디오 아이디를 저장하는 방법 */
   // video: {
   //     type: mongoose.Schema.Types.ObjectId,

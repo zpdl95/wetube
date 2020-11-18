@@ -7,6 +7,20 @@ const UserSchema = new mongoose.Schema({
   avatarUrl: String,
   facebookId: Number,
   githubId: Number,
+  videos: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      /* ref에 적힌 이름은 생성된 모델 이름과 같아야 한다 */
+      ref: "Video",
+    },
+  ],
+  comments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      /* ref에 적힌 이름은 생성된 모델 이름과 같아야 한다 */
+      ref: "Comments",
+    },
+  ],
 });
 /* 스키마에 passport 플러그인을 설치 */
 /* usernameField: username이 될 field명을 명시해준다 */
