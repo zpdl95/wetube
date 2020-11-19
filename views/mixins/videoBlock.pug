@@ -3,7 +3,10 @@
 mixin videoBlock(video = {})
     .videoBlock
         a(href=routes.videoDetail(video.id))
-            video.videoBlock__thumbnail(src=video.videoFile, controls=false)
+            //- /* Url 앞부분에 /를 붙여줌으로써 최상위 디렉토리를 지정해준다 */
+            //- /* getMe로 가면 url이 정상이지만, userDetail로 가면 url에 /user가 붙어서 썸네일이 안나온다 */
+            //- /* 시작루트가 달라서 생기는 문제 */
+            video.videoBlock__thumbnail(src=`/${video.videoFile}`, controls=false)
             h4.videoBlock__title= video.title
             if video.views === 1
                 h6.videoBlock__views 1 view
