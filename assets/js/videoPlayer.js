@@ -4,6 +4,8 @@ const videoPlayer = document.querySelector("#jsVideoPlayer video");
 const playBtn = document.getElementById("jsPlayButton");
 const volumeBtn = document.getElementById("jsVolumeButton");
 const fullScreenBtn = document.getElementById("jsFullScreen");
+const currentTime = document.getElementById("currentTime");
+const totalTime = document.getElementById("totalTime");
 
 function handlePlayBtn() {
   playBtn.innerHTML = '<i class="fas fa-play"></i>';
@@ -32,7 +34,15 @@ function handleVolumeClick() {
   }
 }
 function exitFullScreen() {
-  document.exitFullscreen();
+  if (document.exitFullscreen()) {
+    document.exitFullscreen();
+  } else if (document.mozCancelFullscreen()) {
+    document.mozCancelFullscreen();
+  } else if (document.webkitExitFullscreen()) {
+    document.webkitExitFullscreen();
+  } else if (document.msExitFullscreen()) {
+    document.msExitFullscreen();
+  }
   fullScreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
   fullScreenBtn.removeEventListener("click", exitFullScreen);
   fullScreenBtn.addEventListener("click", goFullScreen);
@@ -40,10 +50,46 @@ function exitFullScreen() {
 
 function goFullScreen() {
   /* 만약 ↓ 코드가 안된다면, videoPlayer.webkitRequestFullscreen(); 사용. 엔진명을 명시해줘야함 */
-  videoContainer.requestFullscreen();
+  if (videoContainer.requestFullscreen()) {
+    videoContainer.requestFullscreen();
+  } else if (videoContainer.mozRequestFullscreen()) {
+    videoContainer.mozRequestFullscreen();
+  } else if (videoContainer.webkitRequestFullscreen()) {
+    videoContainer.webkitRequestFullscreen();
+  } else if (videoContainer.msRequestFullscreen()) {
+    videoContainer.msRequestFullscreen();
+  }
   fullScreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
   fullScreenBtn.removeEventListener("click", goFullScreen);
   fullScreenBtn.addEventListener("click", exitFullScreen);
+}
+
+const formatDate = (seconds) => {
+  const secondsNumber = parseInt(seconds, 10);
+  let hours = Math.floor(secondsNumber / 3600);
+  let minutes = Math.floor((secondsNumber - hours * 3600) / 60);
+  let totalSeconds = secondsNumber - hours * 3600 - minutes * 60;
+
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+  if (seconds < 10) {
+    totalSeconds = `0${totalSeconds}`;
+  }
+  return `${hours}:${minutes}:${totalSeconds}`;
+};
+
+function getCurrentTime() {
+  currentTime.innerText = formatDate(videoPlayer.currentTime);
+}
+
+/* ↓의 함수는 될때도 있고 안될때도 있는데 비디오가 로드되기전에 함수가 실행되면 NaN으로 나온다 */
+function setTotalTime() {
+  totalTime.innerText = formatDate(videoPlayer.duration);
+  setInterval(getCurrentTime, 1000);
 }
 
 function init() {
@@ -51,6 +97,7 @@ function init() {
   volumeBtn.addEventListener("click", handleVolumeClick);
   fullScreenBtn.addEventListener("click", goFullScreen);
   videoPlayer.addEventListener("ended", handlePlayBtn);
+  videoPlayer.addEventListener("loadedmetadata", setTotalTime);
 }
 
 /* videoContainer변수가 videoDetail에만 존재하기때문에 다른페이지에서는 에러가 나온다
