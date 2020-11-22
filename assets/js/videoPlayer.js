@@ -6,6 +6,7 @@ const volumeBtn = document.getElementById("jsVolumeButton");
 const fullScreenBtn = document.getElementById("jsFullScreen");
 const currentTime = document.getElementById("jsCurrentTime");
 const totalTime = document.getElementById("jsTotalTime");
+const volumeRange = document.getElementById("jsVolume");
 
 function handleEnded() {
   playBtn.innerHTML = '<i class="fas fa-play"></i>';
@@ -28,9 +29,17 @@ function handlePlayClick() {
 function handleVolumeClick() {
   if (videoPlayer.muted) {
     videoPlayer.muted = false;
-    volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+    volumeRange.value = videoPlayer.volume;
+    if (volumeRange.value > 0.0 && volumeRange.value <= 0.3) {
+      volumeBtn.innerHTML = '<i class="fas fa-volume-off"></i>';
+    } else if (volumeRange.value > 0.3 && volumeRange.value <= 0.6) {
+      volumeBtn.innerHTML = '<i class="fas fa-volume-down"></i>';
+    } else if (volumeRange.value > 0.6) {
+      volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+    }
   } else {
     videoPlayer.muted = true;
+    volumeRange.value = 0;
     volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
   }
 }
@@ -94,10 +103,28 @@ function setTotalTime() {
   // setInterval(getCurrentTime, 1000);
 }
 
+function handleDrag(event) {
+  const {
+    target: { value },
+  } = event;
+  videoPlayer.volume = value;
+  if (parseFloat(value) === 0) {
+    volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+  } else if (value > 0.0 && value <= 0.3) {
+    volumeBtn.innerHTML = '<i class="fas fa-volume-off"></i>';
+  } else if (value > 0.3 && value <= 0.6) {
+    volumeBtn.innerHTML = '<i class="fas fa-volume-down"></i>';
+  } else if (value > 0.6) {
+    volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+  }
+}
+
 function init() {
+  /* 비디오의 볼륨 기본값을 설정 */
+  videoPlayer.volume = 0.5;
   // 실행버튼
-  playBtn.addEventListener("click", handlePlayClick);
   videoPlayer.addEventListener("click", handlePlayClick);
+  playBtn.addEventListener("click", handlePlayClick);
   // 소리켜고끄기
   volumeBtn.addEventListener("click", handleVolumeClick);
   // 확대 축소
@@ -108,6 +135,8 @@ function init() {
   videoPlayer.addEventListener("timeupdate", getCurrentTime);
   // 재생완료후 초기화
   videoPlayer.addEventListener("ended", handleEnded);
+  // 볼륨조절
+  volumeRange.addEventListener("input", handleDrag);
 }
 
 /* videoContainer변수가 videoDetail에만 존재하기때문에 다른페이지에서는 에러가 나온다
