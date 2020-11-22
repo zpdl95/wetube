@@ -4,11 +4,12 @@ const videoPlayer = document.querySelector("#jsVideoPlayer video");
 const playBtn = document.getElementById("jsPlayButton");
 const volumeBtn = document.getElementById("jsVolumeButton");
 const fullScreenBtn = document.getElementById("jsFullScreen");
-const currentTime = document.getElementById("currentTime");
-const totalTime = document.getElementById("totalTime");
+const currentTime = document.getElementById("jsCurrentTime");
+const totalTime = document.getElementById("jsTotalTime");
 
-function handlePlayBtn() {
+function handleEnded() {
   playBtn.innerHTML = '<i class="fas fa-play"></i>';
+  videoPlayer.currentTime = 0;
 }
 
 function handlePlayClick() {
@@ -83,21 +84,30 @@ const formatDate = (seconds) => {
 };
 
 function getCurrentTime() {
-  currentTime.innerText = formatDate(videoPlayer.currentTime);
+  /* 실수로 표현하게 된 이유는 영상이 완료됬을때 현재시간이 전체시간과 같게 나오기 위함 */
+  currentTime.innerHTML = formatDate(Math.floor(videoPlayer.currentTime));
 }
 
 /* ↓의 함수는 될때도 있고 안될때도 있는데 비디오가 로드되기전에 함수가 실행되면 NaN으로 나온다 */
 function setTotalTime() {
-  totalTime.innerText = formatDate(videoPlayer.duration);
-  setInterval(getCurrentTime, 1000);
+  totalTime.innerHTML = formatDate(videoPlayer.duration);
+  // setInterval(getCurrentTime, 1000);
 }
 
 function init() {
+  // 실행버튼
   playBtn.addEventListener("click", handlePlayClick);
+  videoPlayer.addEventListener("click", handlePlayClick);
+  // 소리켜고끄기
   volumeBtn.addEventListener("click", handleVolumeClick);
+  // 확대 축소
   fullScreenBtn.addEventListener("click", goFullScreen);
-  videoPlayer.addEventListener("ended", handlePlayBtn);
+  // 전체시간 표시
   videoPlayer.addEventListener("loadedmetadata", setTotalTime);
+  // 현재시간 표시
+  videoPlayer.addEventListener("timeupdate", getCurrentTime);
+  // 재생완료후 초기화
+  videoPlayer.addEventListener("ended", handleEnded);
 }
 
 /* videoContainer변수가 videoDetail에만 존재하기때문에 다른페이지에서는 에러가 나온다
