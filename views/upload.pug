@@ -2,6 +2,9 @@ extends layouts/main
 
 block content
     .form-container
+        .record-container#jsRecorderContainer
+            video#jsVideoPreview
+            button(title="Your device must have a camera")#jsRecordBtn Start Recording
         //- enctype는 multer에서 필요한 값. 동영상파일을 url로 변환
         form(action=`${routes.videos}${routes.upload}` method="post" enctype="multipart/form-data") 
             .fileUpload
