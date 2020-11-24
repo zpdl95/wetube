@@ -121,3 +121,20 @@ export const deleteVideo = async (req, res) => {
   }
   res.redirect(routes.home);
 };
+
+// API 서버하고 소통하는 코드, database로 다른 서비스와 통신하기 위해 만들어짐
+export const postRegisterView = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  try {
+    const video = await Video.findById(id);
+    video.views += 1;
+    video.save();
+    res.status(200);
+  } catch (error) {
+    res.status(400);
+  } finally {
+    res.end();
+  }
+};
