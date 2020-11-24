@@ -3,19 +3,42 @@ const recordBtn = document.getElementById("jsRecordBtn");
 const videoPreview = document.getElementById("jsVideoPreview");
 
 let streamObject;
+let videoRecorder;
 
 const handleVideoData = (event) => {
-  console.log(event);
+  /* 여기서 data는 blob데이터로 1회용 데이터다 */
+  const { data: videoFile } = event;
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(videoFile);
+  /* download는 다운받을 파일이름을 정해줌 */
+  link.download = "recorded.webm";
+  document.body.appendChild(link);
+  /* ↓ 함수실행시 자동클릭 */
+  link.click();
 };
 
+// 녹화종료
+const stopRecording = () => {
+  videoPreview.stop();
+  videoRecorder.stop();
+  recordBtn.removeEventListener("click", stopRecording);
+  recordBtn.addEventListener("click", getVideo);
+  recordBtn.innerHTML = "Start recording";
+};
+
+// 녹화 시작
 const startRecording = () => {
   /* ↓ stream을 가진 데이터를 MediaRecorder에 넣어 객체로 만든다 */
-  const videoRecorder = new MediaRecorder(streamObject);
+  /* MediaRecorder는 녹화가 끝나야 데이터를 넘겨준다(전체파일을 한번에 저장함) */
+  videoRecorder = new MediaRecorder(streamObject);
   /* ↓ stream 녹화를 시작한다. state속성값이 recording으로 바뀐다 */
-  videoRecorder.start();
+  videoRecorder.start(1000);
+  /* ↓ 의 이벤트는 녹화가 끝났을때 호출된다 */
   videoRecorder.addEventListener("dataavailable", handleVideoData);
+  recordBtn.addEventListener("click", stopRecording);
 };
 
+// 카메라 데이터 받아오기
 /* 정보를 주고 받아야 할때 async를 사용한다. 지금은 허가를 받기까지 기다려야함 */
 const getVideo = async () => {
   /* 영상쵤영에 대한 허가를 받아야 하는데,
