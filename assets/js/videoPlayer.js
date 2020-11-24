@@ -8,7 +8,14 @@ const currentTime = document.getElementById("jsCurrentTime");
 const totalTime = document.getElementById("jsTotalTime");
 const volumeRange = document.getElementById("jsVolume");
 
+const registerView = () => {
+  const videoId = window.location.href.split("/videos/")[1];
+  /* 데이터베이스를 변경해야하기 때문에 POST를 사용한다 */
+  fetch(`/api/${videoId}/view`, { method: "POST" });
+};
+
 function handleEnded() {
+  registerView();
   playBtn.innerHTML = '<i class="fas fa-play"></i>';
   videoPlayer.currentTime = 0;
 }

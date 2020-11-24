@@ -3,7 +3,7 @@ import routes from "../routes";
 import { postRegisterView } from "../controllers/videoController";
 
 const apiRouter = express.Router();
-
-apiRouter.get(routes.registerView, postRegisterView);
+/* 데이터베이스를 변경해야하기 때문에 POST를 사용한다 */
+apiRouter.post(routes.registerView, postRegisterView);
 
 export default apiRouter;
