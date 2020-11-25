@@ -1,5 +1,6 @@
 import routes from "../routes";
 import Video from "../models/Video";
+import Comment from "../models/Comment";
 
 /* async는 무언가를 기다리는 것 */
 /* await는 다음 과정이 끝날 때까지 기다려줌 */
@@ -64,7 +65,9 @@ export const videoDetail = async (req, res) => {
   try {
     /* populate()는 mongoose.Schema.Types.ObjectId에만 사용가능, 객체를 데려오는 함수 */
     /* creator가 id값으로만 나오는데 populate()를 사용해서 내용물까지 가져옴 */
-    const video = await Video.findById(id).populate("creator");
+    const video = await (await Video.findById(id).populate("creator")).populate(
+      "comments"
+    );
     res.render("videoDetail", { pageTitle: video.title, video });
   } catch (error) {
     console.log(error);
@@ -132,6 +135,27 @@ export const postRegisterView = async (req, res) => {
     video.views += 1;
     video.save();
     res.status(200);
+  } catch (error) {
+    res.status(400);
+  } finally {
+    res.end();
+  }
+};
+
+export const postAddComment = async (req, res) => {
+  const {
+    params: { id },
+    body: { comment },
+    user,
+  } = req;
+  try {
+    const video = await Video.findById(id);
+    const newComment = await Comment.create({
+      text: comment,
+      creator: user.id,
+    });
+    video.comments.push(newComment.id);
+    video.save();
   } catch (error) {
     res.status(400);
   } finally {
