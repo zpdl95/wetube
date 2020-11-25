@@ -65,9 +65,9 @@ export const videoDetail = async (req, res) => {
   try {
     /* populate()는 mongoose.Schema.Types.ObjectId에만 사용가능, 객체를 데려오는 함수 */
     /* creator가 id값으로만 나오는데 populate()를 사용해서 내용물까지 가져옴 */
-    const video = await (await Video.findById(id).populate("creator")).populate(
-      "comments"
-    );
+    const video = await Video.findById(id)
+      .populate("creator")
+      .populate("comments");
     res.render("videoDetail", { pageTitle: video.title, video });
   } catch (error) {
     console.log(error);
