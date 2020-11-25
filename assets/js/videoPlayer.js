@@ -138,6 +138,7 @@ function init() {
   fullScreenBtn.addEventListener("click", goFullScreen);
   // 전체시간 표시
   videoPlayer.addEventListener("loadedmetadata", setTotalTime);
+  videoPlayer.addEventListener("play", setTotalTime);
   // 현재시간 표시
   videoPlayer.addEventListener("timeupdate", getCurrentTime);
   // 재생완료후 초기화
