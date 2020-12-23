@@ -121,3 +121,4 @@ uploads
 .eslintrc.js
 .babelrc
 static
+build
