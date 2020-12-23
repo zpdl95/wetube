@@ -1,4 +1,4 @@
-import "@babel/polyfill";
+require("@babel/polyfill");
 import dotenv from "dotenv"; /* 환경변수값 가져오기 */
 import "./db"; /* 데이터베이스 실행 */
 import app from "./app"; /* 서버 */
