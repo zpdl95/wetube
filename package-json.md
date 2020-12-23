@@ -60,7 +60,8 @@
     /* /s:하위폴더와 파일 전부'
     /* /q:경고없이'
     "prebuild": "rd /s/q build",
-    "start": "node build/init.js"
+    "start": "node build/init.js",
+    "prestart":"npm run build"
   },
   "devDependencies": {
     "eslint": "^7.12.1",
