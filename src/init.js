@@ -11,7 +11,7 @@ import "./models/Comment"; /* 데이터베이스 모델 가져오기 */
 import "./models/User";
 
 /* process.env[key] , process.env.NODE_ENV 환경변수 사용법 */
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 4000;
 
 const handleListening = () =>
   console.log(`✅ Listening on https://localhost:${PORT}`);
