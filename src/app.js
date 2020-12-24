@@ -1,4 +1,3 @@
-import path from "path";
 import express from "express"; /*앞은 ES6버전, 뒤는 구버전*/ /*const express = required('express')*/
 import morgan from "morgan";
 import helmet from "helmet";
@@ -7,6 +6,7 @@ import bodyParser from "body-parser";
 import passport from "passport";
 import mongoose from "mongoose";
 import session from "express-session";
+import path from "path";
 import flash from "express-flash";
 import MongoStore from "connect-mongo";
 import { localsMiddlewares } from "./middlewares";
