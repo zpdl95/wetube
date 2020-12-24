@@ -47,7 +47,7 @@
     "copyAll": "cp -R src/static build && cp -R src/views build",
     "build": "npm run build:server && npm run build:assets && npm run copyAll",
     "tunnel": "lt --port 4000",
-    "start": "set PRODUCTION=true node build/init.js"
+    "start": "node build/init.js"
   },
   "devDependencies": {
     "eslint": "^7.12.1",
