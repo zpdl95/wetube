@@ -45,6 +45,7 @@ Cloning Youtube with Vanilla and NodeJS
 40. npm install express-flash / 유저에게 메시지를 보내고 싶을때 사용함(예, 로그인에 성공했습니다)
 41. npm install get-blob-duration / blob데이터의 길이를 알아냄. 녹화본영상의 duration이 NaN으로 나와 이것으로 fix함
 42. npm install @babel/cli / cmd나 scripts에서 babel을 사용하기 위해 설치. 모든 자바스크립트파일을 컴파일해서 옛코드로 변환한다.
+43. heroku plugins:install heroku-config / 헤로쿠에 .env값을 올리기 위해 사용 [heroku config:push]
 
 
 async/await 대신에 사용하는것은 then
