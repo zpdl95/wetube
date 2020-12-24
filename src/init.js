@@ -12,11 +12,12 @@ import "./models/User";
 
 /* process.env[key] , process.env.NODE_ENV 환경변수 사용법 */
 const PORT = process.env.PORT || 4000;
+const host = "0.0.0.0";
 
 const handleListening = () =>
   console.log(`✅ Listening on https://localhost:${PORT}`);
 
-app.listen(PORT, handleListening); /* 서버 실행 */
+app.listen(PORT, host, handleListening); /* 서버 실행 */
 
 /*
 import path from 'path'
