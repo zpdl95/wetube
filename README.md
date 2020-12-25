@@ -8,13 +8,15 @@ Cloning Youtube with Vanilla and NodeJS
 - [x] Join
 - [x] Login
 - [x] Search
-- [ ] User Detail
+- [x] User Detail
 - [x] Edit Profile
 - [x] Change Password
 - [x] Upload
 - [x] Video Detail
 - [x] Edit Video
 - [x] Database
-- [ ] everyone use
-- [ ] css
-- [ ] user authentication
+- [x] everyone use
+- [x] css
+- [x] user authentication
+
+### I don't have aws S3 ㅠㅠ
