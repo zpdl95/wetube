@@ -22,7 +22,9 @@ passport.use(
     {
       clientID: process.env.GH_ID,
       clientSecret: process.env.GH_SECRET,
-      callbackURL: `http://localhost:5000${routes.githubCallback}`,
+      callbackURL: process.env.PRODUCTION
+        ? `https://tweetube1.herokuapp.com${routes.githubCallback}`
+        : `http://localhost:5000${routes.githubCallback}`,
     },
     /* passport.authenticate("github")를 두번째로 실행하면 ↓가 실행됨 */
     githubLoginCallback
@@ -37,7 +39,9 @@ passport.use(
     {
       clientID: process.env.FB_ID,
       clientSecret: process.env.FB_SECRET,
-      callbackURL: `http://localhost:5000${routes.facebookCallback}`,
+      callbackURL: process.env.PRODUCTION
+        ? `https://tweetube1.herokuapp.com${routes.facebookCallback}`
+        : `http://localhost:5000${routes.facebookCallback}`,
       /* 원하는 사용자 필드가 있을때 명시해줄것 */
       profileFields: ["id", "displayName", "photos", "email"],
       /* 추가권한이 필요한 경우 scope옵션 사용 */

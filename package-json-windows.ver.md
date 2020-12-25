@@ -64,7 +64,7 @@
     /* /s:하위폴더와 파일 전부'
     /* /q:경고없이'
     "prebuild": "rd /s/q build",
-    "start": "PRODUCTION=true node build/init.js",
+    "start": "cross-env PRODUCTION=true node build/init.js",
     "prestart":"npm run build"
   },
   "devDependencies": {
