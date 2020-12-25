@@ -10,10 +10,10 @@ export const home = async (req, res) => {
   try {
     /* .find()를 하면 전부다 가져옴. 따라서 Array형태로 나옴 */
     const videos = await Video.find({}).sort({ _id: -1 });
-    res.render("Home", { pageTitle: "Home", videos });
+    res.render("home", { pageTitle: "Home", videos });
   } catch (error) {
     console.log(error);
-    res.render("Home", { pageTitle: "Home", videos: [] });
+    res.render("home", { pageTitle: "Home", videos: [] });
   }
 };
 
