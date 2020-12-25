@@ -40,6 +40,10 @@
     "webpack": "^5.4.0",
     "webpack-cli": "^4.2.0"
   },
+  /* 아래의 내용이 babel사용시 필수! */
+  "babel":{
+    "presets":["@babel/preset-env"]
+  },
   "scripts": {
       /* nodemon 세이브 할때마다 서버를 재시작함 */
       /* babel-node init.js파일은 최신코드로 작성됬기때문에 babel기능이 있는 node를 사용해 실행시킴 */
@@ -60,7 +64,7 @@
     /* /s:하위폴더와 파일 전부'
     /* /q:경고없이'
     "prebuild": "rd /s/q build",
-    "start": "set PRODUCTION=true node build/init.js",
+    "start": "PRODUCTION=true node build/init.js",
     "prestart":"npm run build"
   },
   "devDependencies": {
