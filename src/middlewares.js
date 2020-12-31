@@ -22,6 +22,8 @@ const multerVideo = multer(
           s3,
           acl: "public-read",
           bucket: "tweetube1/video",
+          contentType: multerS3.AUTO_CONTENT_TYPE,
+          contentLength: 1000000000,
         }),
       }
     : {
@@ -37,7 +39,7 @@ const multerAvatar = multer(
           acl: "public-read",
           bucket: "tweetube1/avatar",
           contentType: multerS3.AUTO_CONTENT_TYPE,
-          contentLength: 1000000000,
+          contentLength: 100000000,
         }),
       }
     : {
