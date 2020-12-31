@@ -108,9 +108,16 @@ function getCurrentTime() {
 
 /* ↓의 함수는 될때도 있고 안될때도 있는데 비디오가 로드되기전에 함수가 실행되면 NaN으로 나온다 */
 async function setTotalTime() {
-  /* ↓ 하는 이유는 녹화영상이 blob데이터라서 그냥 업로드하면 영상길이가 NaN로 나오기때문 */
-  const blob = await fetch(videoPlayer.src).then((response) => response.blob());
-  const duration = await getBlobDuration(blob);
+  let duration;
+  try {
+    /* ↓ 하는 이유는 녹화영상이 blob데이터라서 그냥 업로드하면 영상길이가 NaN로 나오기때문 */
+    const blob = await fetch(videoPlayer.src).then((response) =>
+      response.blob()
+    );
+    duration = await getBlobDuration(blob);
+  } catch {
+    duration = videoPlayer.duration;
+  }
   totalTime.innerHTML = formatDate(duration);
   // setInterval(getCurrentTime, 1000);
 }

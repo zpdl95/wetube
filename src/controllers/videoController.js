@@ -2,6 +2,13 @@ import fs from "fs";
 import routes from "../routes";
 import Video from "../models/Video";
 import Comment from "../models/Comment";
+import aws from "aws-sdk";
+
+const s3 = new aws.S3({
+  accessKeyId: process.env.AWS_ACCESS_KEY,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: "ap-northeast-2",
+});
 
 /* async는 무언가를 기다리는 것 */
 /* await는 다음 과정이 끝날 때까지 기다려줌 */
@@ -146,8 +153,17 @@ export const deleteVideo = async (req, res) => {
       );
       user.save();
       /* 파일 삭제 명령어 */
-      fs.unlink(video.fileUrl, (error) => {
-        res.end();
+      const fileName = video.fileUrl.split("/").pop();
+      const params = {
+        Bucket: "tweetube1",
+        Key: `video/${fileName}`,
+      };
+      s3.deleteObject(params, (err, data) => {
+        if (err) {
+          console.log(err, err.stack);
+        } else {
+          console.log(data);
+        }
       });
     }
   } catch (error) {
