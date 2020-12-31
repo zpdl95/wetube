@@ -133,7 +133,7 @@ function handleDrag(event) {
 
 function init() {
   /* 비디오의 볼륨 기본값을 설정 */
-  videoPlayer.volume = 0.5;
+  videoPlayer.volume = 1;
   // 실행버튼
   videoPlayer.addEventListener("click", handlePlayClick);
   playBtn.addEventListener("click", handlePlayClick);
@@ -143,7 +143,7 @@ function init() {
   fullScreenBtn.addEventListener("click", goFullScreen);
   // 전체시간 표시
   videoPlayer.addEventListener("loadedmetadata", setTotalTime);
-  videoPlayer.addEventListener("play", setTotalTime);
+  videoPlayer.addEventListener("timeupdate", setTotalTime);
   // 현재시간 표시
   videoPlayer.addEventListener("timeupdate", getCurrentTime);
   // 재생완료후 초기화
