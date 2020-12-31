@@ -42,22 +42,39 @@ export const getUpload = (req, res) => {
 };
 
 export const postUpload = async (req, res) => {
-  const {
-    body: { title, description },
-    /* multer가 주는 주소 */
-    file: { path },
-    user,
-  } = req;
-  console.log(path);
-  const newVideo = await Video.create({
-    fileUrl: path,
-    title,
-    description,
-    creator: user.id,
-  });
-  user.videos.push(newVideo.id);
-  user.save();
-  res.redirect(routes.videoDetail(newVideo.id));
+  if (process.env.PRODUCTION) {
+    const {
+      body: { title, description },
+      /* multer가 주는 주소 */
+      file: { location },
+      user,
+    } = req;
+    const newVideo = await Video.create({
+      fileUrl: location,
+      title,
+      description,
+      creator: user.id,
+    });
+    user.videos.push(newVideo.id);
+    user.save();
+    res.redirect(routes.videoDetail(newVideo.id));
+  } else {
+    const {
+      body: { title, description },
+      /* multer가 주는 주소 */
+      file: { path },
+      user,
+    } = req;
+    const newVideo = await Video.create({
+      fileUrl: path,
+      title,
+      description,
+      creator: user.id,
+    });
+    user.videos.push(newVideo.id);
+    user.save();
+    res.redirect(routes.videoDetail(newVideo.id));
+  }
 };
 
 export const videoDetail = async (req, res) => {

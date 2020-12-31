@@ -174,14 +174,25 @@ export const postEditProfile = async (req, res) => {
     file,
   } = req;
   try {
-    /* findByIdAndUpdate(_,__)의 첫번째 인자는 id, 두번째 인자는 변경할 값 */
-    await User.findByIdAndUpdate(req.user.id, {
-      name,
-      email,
-      avatarUrl: file ? file.path : req.user.avatarUrl,
-    });
-    req.flash("success", "Profile updated");
-    res.redirect(routes.me);
+    if (process.env.PRODUCTION) {
+      /* findByIdAndUpdate(_,__)의 첫번째 인자는 id, 두번째 인자는 변경할 값 */
+      await User.findByIdAndUpdate(req.user.id, {
+        name,
+        email,
+        avatarUrl: file ? file.location : req.user.avatarUrl,
+      });
+      req.flash("success", "Profile updated");
+      res.redirect(routes.me);
+    } else {
+      /* findByIdAndUpdate(_,__)의 첫번째 인자는 id, 두번째 인자는 변경할 값 */
+      await User.findByIdAndUpdate(req.user.id, {
+        name,
+        email,
+        avatarUrl: file ? file.path : req.user.avatarUrl,
+      });
+      req.flash("success", "Profile updated");
+      res.redirect(routes.me);
+    }
   } catch (error) {
     req.flash("error", "Can't update profile");
     res.redirect(`${routes.users}${routes.editProfile}`);

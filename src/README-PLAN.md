@@ -46,6 +46,7 @@ Cloning Youtube with Vanilla and NodeJS
 41. npm install get-blob-duration / blob데이터의 길이를 알아냄. 녹화본영상의 duration이 NaN으로 나와 이것으로 fix함
 42. npm install @babel/cli / cmd나 scripts에서 babel을 사용하기 위해 설치. 모든 자바스크립트파일을 컴파일해서 옛코드로 변환한다.
 43. heroku plugins:install heroku-config / 헤로쿠에 .env값을 올리기 위해 사용 [heroku config:push]
+44. npm i aws-sdk multer-s3 / 아마존 s3에 연결
 
 
 async/await 대신에 사용하는것은 then
